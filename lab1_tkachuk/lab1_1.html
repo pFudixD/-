@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Завдання 6</h2>
+    <br>
+    <script>
+
+        let product = ["Зошит", "Ручка", "Гумка"];
+        let quantity = [105, 50, 200];
+        let cost = [52, 25, 7];
+
+
+        let currentIndex = -1;
+
+        function fun1() {
+            let name = document.form1.name_product.value.trim();
+            currentIndex = -1;
+
+            for (let i = 0; i < product.length; i++) {
+                if (product[i].toLowerCase() === name.toLowerCase()) {
+                    currentIndex = i;
+                    document.form1.output_quantity.value = "Наявно " + quantity[i];
+                    document.form1.output_cost.value = "Вартість за 1 штуку " + cost[i] + " грн";
+                    return;
+                }
+            }
+
+
+            document.form1.output_quantity.value = "Товар не знайдено!";
+            document.form1.output_cost.value = "";
+        }
+
+        function fun2() {
+            if (currentIndex === -1) {
+                alert("Спершу знайдіть товар!");
+                return;
+            }
+
+            let total = quantity[currentIndex] * cost[currentIndex];
+            document.getElementById("total_sum").innerText =
+                "Загальна сума товару \"" + product[currentIndex] + "\" = " + total + " грн";
+        }
+    </script>
+     <form name="form1">
+    Введіть назву товару: 
+    <input type="text" name="name_product">
+    <input type="button" value="Наявна кількість і вартість" onClick="fun1()">
+    <br><br>
+    <input type="text" size="50" name="output_quantity" readonly>
+    <br><br>
+    <input type="text" size="50" name="output_cost" readonly>
+    <br><br>
+    <input type="button" value="Сума" onClick="fun2()">
+  </form>
+
+  <p id="total_sum" style="font-weight: bold; color: rgb(97, 72, 50);"></p>
+
+
+
+  <h2>Завдання 7</h2>
+В мене код ламається коли я роблю той випадаючий список  
+</body>
+<br>
+
+</html>
