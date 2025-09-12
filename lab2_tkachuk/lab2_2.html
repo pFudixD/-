@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Завдання 3</h2>
+    <script>
+        let str, stb;
+
+        function fun() {
+            str = parseInt(main_form.t_str.value);
+            stb = parseInt(main_form.t_stb.value);
+            let res_str = "<table border='1' cellspacing='0' cellpadding='4'>\n";
+
+            for (let i = 1; i <= str; i++) {
+                res_str += "<tr>\n";
+                for (let j = 1; j <= stb; j++) {
+                    let value = 3 * j - 2 * i;
+                    res_str += `<td><input type="text" id="_${i}_${j}" value="${value}"></td>\n`;
+                }
+                res_str += "</tr>\n";
+            }
+            res_str += "</table>";
+            main_div.innerHTML = res_str;
+        }
+
+        function fun_build() {
+            let sum = 0;
+            let targetCol = 3;
+
+            if (targetCol > stb) {
+                alert("Третій стовпець не існує");
+                return;
+            }
+
+            for (let i = 1; i <= str; i++) {
+                let val = parseInt(document.getElementById(`_${i}_${targetCol}`).value);
+                sum += val;
+            }
+
+            alert("Сума елементів 3 стовпця = " + sum);
+        }
+    </script>
+
+    <form id="main_form">
+        <table>
+            <tr>
+                <td>Кількість рядків</td>
+                <td><input type="text" id="t_str" value="3"></td>
+            </tr>
+            <tr>
+                <td>Кількість стовпців</td>
+                <td><input type="text" id="t_stb" value="3"></td>
+            </tr>
+            <tr>
+                <td><input type="button" onClick="fun();" value="Побудувати матрицю"></td>
+            </tr>
+            <tr>
+                <td><input type="button" onClick="fun_build();" value="Розрахувати"></td>
+            </tr>
+        </table>
+        <div id="main_div"></div>
+    </form>
+
+    <h2>Завдання 4</h2>
+    <script>
+        function testConsole() {
+            let a = 17;
+            let b = 5;
+
+
+            console.log("Остача від ділення %d на %d дорівнює %d", a, b, a % b);
+
+            console.log("Чи ділиться %d на %d без остачі? %s", a, b, (a % b === 0));
+
+
+            let arr = [10, 20, 30, 40];
+            console.log("Елементи масиву: %d, %d, %d, %d", arr[0], arr[1], arr[2], arr[3]);
+            console.log("Перший елемент як рядок: %s", arr[0]);
+        }
+    </script>
+    <button onclick="testConsole()">Перевірити console.log()</button>
+
+
+    <h2>Завдання 5</h2>
+
+    <script>
+        function testConsoleMethods() {
+            console.clear();
+            console.info("(console.info)");
+
+
+            console.warn("(console.warn)");
+
+
+            console.error("(console.error)");
+
+
+            let obj = { name: "Олег", age: 18, skills: ["JS", "HTML", "CSS"] };
+            console.dir(obj);
+
+
+            let div = document.createElement("div");
+            div.innerHTML = "42";
+            console.dirxml(div);
+
+
+            console.time("Таймер виконання");
+            let sum = 0;
+            for (let i = 0; i < 1e6; i++) sum += i;
+            console.timeEnd("Таймер виконання");
+
+
+            console.profile("Профілювання коду");
+            for (let i = 0; i < 1e5; i++) { Math.sqrt(i); }
+            console.profileEnd("Профілювання коду");
+
+
+            let x = 10;
+            console.assert(x < 5, "Помилка: x має бути менше 5, але x = " + x);
+            console.assert(x > 5, "Це повідомлення не з’явиться, бо умова істинна");
+        }
+    </script>
+    <button onclick="testConsoleMethods()">Штуки консолі</button>
+</body>
+
+</html>

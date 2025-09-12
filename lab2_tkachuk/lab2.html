@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="clock()">
+  <a href="./lab2_2.html">2 частина роботи</a>
+    <h2>Завдання 1</h2>
+  <form name="clock">
+    <input type="text" name="datetime" size="25" value="">
+  </form>
+
+<script>
+function clock() {
+  let now = new Date();
+
+  let year = now.getFullYear();
+  let month = now.getMonth() + 1;
+  let day = now.getDate();
+
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+  if (hours < 10) hours = "0" + hours;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (seconds < 10) seconds = "0" + seconds;
+
+  let dateTimeStr = year + " " + month + " " + day + " time " + hours + ":" + minutes + ":" + seconds;
+
+  document.clock.datetime.value = dateTimeStr;
+
+  setTimeout(clock, 1000);
+}
+
+
+   
+</script>
+<h2>Завдання 2</h2>
+<div class="calc">
+  <form name="calcForm">
+    <input type="text" name="display" disabled>
+    <br>
+    <input type="button" class="btn" value="1" onclick="add('1')">
+    <input type="button" class="btn" value="2" onclick="add('2')">
+    <input type="button" class="btn" value="3" onclick="add('3')">
+    <input type="button" class="btn" value="/" onclick="add('/')"><br>
+
+    <input type="button" class="btn" value="4" onclick="add('4')">
+    <input type="button" class="btn" value="5" onclick="add('5')">
+    <input type="button" class="btn" value="6" onclick="add('6')">
+    <input type="button" class="btn" value="*" onclick="add('*')"><br>
+
+    <input type="button" class="btn" value="7" onclick="add('7')">
+    <input type="button" class="btn" value="8" onclick="add('8')">
+    <input type="button" class="btn" value="9" onclick="add('9')">
+    <input type="button" class="btn" value="-" onclick="add('-')"><br>
+
+    <input type="button" class="btn" value="0" onclick="add('0')">
+    <input type="button" class="btn" value="." onclick="add('.')">
+    <input type="button" class="btn" value="=" onclick="calculate()">
+    <input type="button" class="btn" value="+" onclick="add('+')"><br>
+
+    <input type="button" class="btn" value="C" onclick="clearDisplay()" style="width: 190px;">
+  </form>
+</div>
+
+<script>
+function add(symbol) {
+  document.calcForm.display.value += symbol;
+}
+
+function calculate() {
+  try {
+    document.calcForm.display.value = eval(document.calcForm.display.value);
+  } catch {
+    document.calcForm.display.value = "Error";
+  }
+}
+
+function clearDisplay() {
+  document.calcForm.display.value = "";
+}
+</script>
+
+</body>
+</html>
