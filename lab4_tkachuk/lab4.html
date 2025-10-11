@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="styles.css">
+    <h2>Тестування з основ Web-технологій</h2>
+
+<form id="testForm">
+
+
+<fieldset>
+<legend>1. Який тег використовується для вставки зображення?</legend>
+<label><input type="radio" name="q1" value="1"> &lt;img&gt;</label><br>
+<label><input type="radio" name="q1" value="0"> &lt;image&gt;</label><br>
+<label><input type="radio" name="q1" value="0"> &lt;picture&gt;</label><br>
+<label><input type="radio" name="q1" value="0"> &lt;src&gt;</label><br>
+</fieldset>
+
+
+<fieldset>
+<legend>2. Який атрибут використовується для задання адреси гіперпосилання?</legend>
+<label><input type="radio" name="q2" value="1"> href</label><br>
+<label><input type="radio" name="q2" value="0"> link</label><br>
+<label><input type="radio" name="q2" value="0"> src</label><br>
+<label><input type="radio" name="q2" value="0"> url</label><br>
+</fieldset>
+
+
+<fieldset>
+<legend>3. Які мови належать до фронтенду?</legend>
+<label><input type="checkbox" name="q3" value="1"> HTML</label><br>
+<label><input type="checkbox" name="q3" value="1"> JavaScript</label><br>
+<label><input type="checkbox" name="q3" value="0"> PHP</label><br>
+<label><input type="checkbox" name="q3" value="0"> Python</label><br>
+</fieldset>
+
+<fieldset>
+<legend>4. Які з наведених — тегові елементи HTML?</legend>
+<label><input type="checkbox" name="q4" value="1"> &lt;div&gt;</label><br>
+<label><input type="checkbox" name="q4" value="1"> &lt;p&gt;</label><br>
+<label><input type="checkbox" name="q4" value="0"> background-color</label><br>
+<label><input type="checkbox" name="q4" value="0"> width</label><br>
+</fieldset>
+
+
+<fieldset>
+<legend>5. Який формат таблиць підтримується HTML?</legend>
+<select name="q5">
+  <option value="0">.docx</option>
+  <option value="0">.csv</option>
+  <option value="1">&lt;table&gt;</option>
+  <option value="0">.pdf</option>
+</select>
+</fieldset>
+
+<fieldset>
+<legend>6. Які з наведених — мови розмітки?</legend>
+<select name="q6" multiple size="4">
+  <option value="1">HTML</option>
+  <option value="1">XML</option>
+  <option value="0">Python</option>
+  <option value="0">C++</option>
+</select>
+</fieldset>
+
+<fieldset>
+<legend>7. Вкажіть рік створення мови HTML:</legend>
+<input type="text" name="q7" placeholder="Введіть рік">
+</fieldset>
+
+<button type="button" onclick="checkTest()">Завершити тестування</button>
+
+</form>
+
+<div id="result"></div>
+
+<script>
+function checkTest() {
+  let total = 0;
+  let output = "<h3>Результати тесту</h3><table><tr><th>Питання</th><th>Ваша відповідь</th><th>Бали</th></tr>";
+
+  let q1 = document.querySelector('input[name="q1"]:checked');
+  let b1 = q1 ? parseFloat(q1.value) : 0;
+  total += b1;
+  output += `<tr><td>1. Тег зображення</td><td>${q1 ? q1.parentNode.textContent.trim() : "-"}</td><td>${b1}</td></tr>`;
+
+  let q2 = document.querySelector('input[name="q2"]:checked');
+  let b2 = q2 ? parseFloat(q2.value) : 0;
+  total += b2;
+  output += `<tr><td>2. Атрибут посилання</td><td>${q2 ? q2.parentNode.textContent.trim() : "-"}</td><td>${b2}</td></tr>`;
+
+  let q3 = document.querySelectorAll('input[name="q3"]:checked');
+  let c3 = Array.from(q3).map(e => e.parentNode.textContent.trim()).join(", ") || "-";
+  let vals3 = Array.from(q3).map(e => parseInt(e.value));
+  let b3 = 0;
+  if (q3.length === 2) b3 = vals3.reduce((a,b)=>a+b,0);
+  else b3 = 0;
+  total += b3;
+  output += `<tr><td>3. Фронтенд мови</td><td>${c3}</td><td>${b3}</td></tr>`;
+
+  let q4 = document.querySelectorAll('input[name="q4"]:checked');
+  let c4 = Array.from(q4).map(e => e.parentNode.textContent.trim()).join(", ") || "-";
+  let vals4 = Array.from(q4).map(e => parseInt(e.value));
+  let b4 = 0;
+  if (q4.length === 2) b4 = vals4.reduce((a,b)=>a+b,0);
+  else b4 = 0;
+  total += b4;
+  output += `<tr><td>4. Тегові елементи</td><td>${c4}</td><td>${b4}</td></tr>`;
+
+  let q5 = document.querySelector('select[name="q5"]').value;
+  let t5 = document.querySelector('select[name="q5"]').selectedOptions[0].textContent;
+  let b5 = parseFloat(q5);
+  total += b5;
+  output += `<tr><td>5. Формат таблиць</td><td>${t5}</td><td>${b5}</td></tr>`;
+
+  let q6 = document.querySelector('select[name="q6"]');
+  let selected6 = Array.from(q6.selectedOptions);
+  let t6 = selected6.map(o => o.textContent).join(", ") || "-";
+  let vals6 = selected6.map(o => parseInt(o.value));
+  let b6 = 0;
+  if (selected6.length === 2) b6 = vals6.reduce((a,b)=>a+b,0);
+  else b6 = 0;
+  total += b6;
+  output += `<tr><td>6. Мови розмітки</td><td>${t6}</td><td>${b6}</td></tr>`;
+
+  let q7 = document.querySelector('input[name="q7"]').value.trim();
+  let b7 = (q7 === "1991") ? 1 : 0;
+  total += b7;
+  output += `<tr><td>7. Рік створення HTML</td><td>${q7 || "-"}</td><td>${b7}</td></tr>`;
+
+  output += `<tr><th colspan="2">Загальний бал</th><th>${total}</th></tr></table>`;
+  document.getElementById("result").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
