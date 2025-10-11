@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="styles.css">
+    <a href="lab3.3.html">Друга частина роботи</a>
+    <h2>Завдання 1</h2>
+
+    <label>Довжина a </label>
+    <input type="number" id="a" placeholder="Введіть довжину"><br><br>
+
+    <label>Ширина b </label>
+    <input type="number" id="b" placeholder="Введіть ширину"><br><br>
+
+    <p>Площа: <span id="result">0</span></p>
+
+    <script>
+
+        const aInput = document.getElementById('a');
+        const bInput = document.getElementById('b');
+        const result = document.getElementById('result');
+
+        function calculateArea() {
+            const a = parseFloat(aInput.value);
+            const b = parseFloat(bInput.value);
+
+            if (!isNaN(a) && !isNaN(b)) {
+                const area = a * b;
+                result.textContent = area.toFixed(2);
+            } else {
+                result.textContent = "0";
+            }
+        }
+
+
+        aInput.addEventListener('input', calculateArea);
+        bInput.addEventListener('input', calculateArea);
+    </script>
+
+
+    <h2>Завдання 2, 3</h2>
+    <textarea id="output" placeholder="Ваш текст"></textarea>
+
+    <div class="keyboard" id="keyboard"></div>
+
+    <script>
+        let uaLetters = ['а', 'б', 'в', 'г', 'ґ', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю', 'я'];
+        let enLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        let digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        let currentLayout = 'ua';
+
+        const keyboard = document.getElementById('keyboard');
+        const output = document.getElementById('output');
+
+        function createKey(char, specialAction = null) {
+            let btn = document.createElement('div');
+            btn.className = 'key';
+            btn.textContent = char;
+
+            btn.addEventListener('click', () => {
+                if (specialAction === 'clear') {
+                    output.value = '';
+                }
+                else if (specialAction === 'switch') {
+                    toggleLayout();
+                }
+                else {
+                    output.value += char;
+                }
+
+                btn.classList.add('active');
+                setTimeout(() => btn.classList.remove('active'), 150);
+            });
+
+            return btn;
+        }
+
+        function buildKeyboard() {
+            keyboard.innerHTML = '';
+
+            let row1 = document.createElement('div');
+            row1.className = 'row';
+            digits.forEach(d => row1.appendChild(createKey(d)));
+            keyboard.appendChild(row1);
+
+            let letters = currentLayout === 'ua' ? uaLetters : enLetters;
+            let row2 = document.createElement('div');
+            row2.className = 'row';
+            let row3 = document.createElement('div');
+            row3.className = 'row';
+            let row4 = document.createElement('div');
+            row4.className = 'row';
+
+            letters.forEach((l, i) => {
+                if (i < 11) row2.appendChild(createKey(l));
+                else if (i < 22) row3.appendChild(createKey(l));
+                else row4.appendChild(createKey(l));
+            });
+
+            keyboard.appendChild(row2);
+            keyboard.appendChild(row3);
+            keyboard.appendChild(row4);
+
+            let row5 = document.createElement('div');
+            row5.className = 'row';
+            let clearBtn = createKey('Очистити поле', 'clear');
+            clearBtn.classList.add('clear-btn');
+
+            let switchBtn = createKey('Alt+Shift', 'switch');
+            switchBtn.classList.add('switch-btn');
+
+            row5.appendChild(clearBtn);
+            row5.appendChild(switchBtn);
+            keyboard.appendChild(row5);
+        }
+
+        function toggleLayout() {
+            currentLayout = (currentLayout === 'ua') ? 'en' : 'ua';
+            buildKeyboard();
+        }
+        buildKeyboard();
+    </script>
+</body>
+
+</html>

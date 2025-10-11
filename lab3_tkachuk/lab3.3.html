@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея та Арифметика</title>
+  <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+  <div id="menu">
+    <button onclick="show('gallery')">Завдання 4</button>
+    <button onclick="show('quiz')">Завдання 5</button>
+  </div>
+
+  <section id="gallery">
+    <img id="viewer" src="">
+    <div>
+      <button id="prevImage">⬅ Назад</button>
+      <button id="nextImage">Вперед ➡</button>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div id="task"></div>
+    <input type="text" id="answer" placeholder="Введіть відповідь">
+    <br>
+    <button id="checkTask">Перевірити</button>
+    <button id="nextTask">Наступне завдання</button>
+    <div id="result"></div>
+    <h3 id="score"></h3>
+  </section>
+
+  <script>
+
+    function show(section) {
+      document.querySelectorAll("section").forEach(s => s.style.display = "none");
+      document.getElementById(section).style.display = "block";
+    }
+
+    let images = ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg', 'img/5.jpg'];
+    let index = 0;
+    const viewer = document.getElementById('viewer');
+    viewer.src = images[index];
+
+    document.getElementById('nextImage').onclick = () => {
+      index = (index + 1) % images.length;
+      viewer.src = images[index];
+    };
+    document.getElementById('prevImage').onclick = () => {
+      index = (index - 1 + images.length) % images.length;
+      viewer.src = images[index];
+    };
+    let correct = 0, total = 0, maxTasks = 5;
+    let num1, num2, op, correctAnswer;
+    const taskDiv = document.getElementById('task');
+    const resultDiv = document.getElementById('result');
+    const scoreDiv = document.getElementById('score');
+    const answerInput = document.getElementById('answer');
+
+    function newTask() {
+      if (total >= maxTasks) {
+        taskDiv.textContent = "Тест завершено!";
+        return;
+      }
+      const ops = ['+','-','*','/'];
+      num1 = Math.floor(Math.random()*10);
+      num2 = Math.floor(Math.random()*10);
+      op = ops[Math.floor(Math.random()*ops.length)];
+      if (op === '/' && num2 === 0) num2 = 1;
+
+      switch(op) {
+        case '+': correctAnswer = num1 + num2; break;
+        case '-': correctAnswer = num1 - num2; break;
+        case '*': correctAnswer = num1 * num2; break;
+        case '/': correctAnswer = +(num1 / num2).toFixed(2); break;
+      }
+
+      taskDiv.textContent = `Завдання ${total + 1}: ${num1} ${op} ${num2} = ?`;
+      resultDiv.textContent = "";
+      answerInput.value = "";
+    }
+
+    document.getElementById('checkTask').onclick = () => {
+      if (total >= maxTasks) return;
+      const userAnswer = parseFloat(answerInput.value);
+      if (userAnswer === correctAnswer) {
+        resultDiv.textContent = "✅ Правильно!";
+        correct++;
+      } else {
+        resultDiv.textContent = `Помилка, правильна відповідь: ${correctAnswer}`;
+      }
+      total++;
+      scoreDiv.textContent = `Рахунок: ${correct} / ${total}`;
+    };
+
+    document.getElementById('nextTask').onclick = newTask;
+    show('gallery');
+    newTask();
+  </script>
+
+</body>
+</html>
