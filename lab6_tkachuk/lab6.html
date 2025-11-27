@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Завдання 1 — розбір e-mail</h2>
+
+<div id="task1"></div>
+
+<script>
+   
+    let s = "dwbyu@mail.ua";
+    let r = /^([a-z0-9]+)(\.[a-z0-9]+)*@([a-z0-9]+)(\.[a-z0-9]+)*$/i;
+    let a = s.match(r);
+
+    let out = "";
+    for (let i = 0; i < a.length; i++) {
+        out += "<hr> a[" + i + "] = " + a[i];
+    }
+
+    document.getElementById("task1").innerHTML = out;
+</script>
+
+<hr>
+
+
+<h2>Завдання 2.1–2.2 — форма + валідація</h2>
+
+<form id="form">
+    <div class="row">
+        <label>E-mail:</label>
+        <input type="text" id="email">
+        <span class="msg" id="msgEmail"></span>
+    </div>
+
+    <div class="row">
+        <label>Ім’я та прізвище:</label>
+        <input type="text" id="fio">
+        <span class="msg" id="msgFio"></span>
+    </div>
+
+    <div class="row">
+        <label>Логін:</label>
+        <input type="text" id="login">
+        <span class="msg" id="msgLogin"></span>
+    </div>
+
+    <div class="row">
+        <label>Пароль:</label>
+        <input type="password" id="pass">
+        <span class="msg" id="msgPass"></span>
+    </div>
+
+    <div class="row">
+        <label>Поштовий індекс:</label>
+        <input type="text" id="index">
+        <span class="msg" id="msgIndex"></span>
+    </div>
+
+    <button type="button" onclick="validate()">Перевірити</button>
+</form>
+
+<script>
+
+function validate() {
+    checkEmail();
+    checkFio();
+    checkLogin();
+    checkPass();
+    checkIndex();
+}
+
+function checkEmail() {
+    let f = document.getElementById("email");
+    let msg = document.getElementById("msgEmail");
+
+    let r = /^[a-z0-9._-]+@pnu\.edu\.ua$/i;
+
+    if (r.test(f.value)) ok(f, msg, "✓");
+    else error(f, msg, "email має бути *@pnu.edu.ua");
+}
+
+function checkFio() {
+    let f = document.getElementById("fio");
+    let msg = document.getElementById("msgFio");
+
+    let r = /^([A-ZА-Я][a-zа-я]+)\s+([A-ZА-Я]+)$/;
+
+    if (r.test(f.value)) ok(f, msg, "✓");
+    else error(f, msg, "Формат: Ім’я (Aaaa) + Прізвище (AAAA)");
+}
+
+
+function checkLogin() {
+    let f = document.getElementById("login");
+    let msg = document.getElementById("msgLogin");
+
+    let r = /^[a-zA-Z]+$/;
+
+    if (r.test(f.value)) ok(f, msg, "✓");
+    else error(f, msg, "Лише латина.");
+}
+
+function checkPass() {
+    let f = document.getElementById("pass");
+    let msg = document.getElementById("msgPass");
+
+    let r = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[_\-!@#$%^&*]).{8,}$/;
+
+    if (r.test(f.value)) ok(f, msg, "✓");
+    else error(f, msg, "мін. 8 символів, літера, цифра, спецсимвол");
+}
+
+function checkIndex() {
+    let f = document.getElementById("index");
+    let msg = document.getElementById("msgIndex");
+
+    let r = /^\d{5}$/;
+
+    if (r.test(f.value)) ok(f, msg, "✓");
+    else error(f, msg, "5 цифр");
+}
+
+function ok(field, msg, text) {
+    field.classList.remove("error");
+    field.classList.add("ok");
+    msg.style.color = "green";
+    msg.innerText = text;
+}
+
+function error(field, msg, text) {
+    field.classList.remove("ok");
+    field.classList.add("error");
+    msg.style.color = "red";
+    msg.innerText = text;
+}
+</script>
+
+</body>
+</html>

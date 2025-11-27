@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+input {
+    padding: 5px;
+    margin-left: 10px;
+    border: 2px solid gray;
+}
+
+.ok {
+    border-color: green;
+}
+
+.error {
+    border-color: red;
+    color: red;
+}
+
+.msg {
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+label {
+    width: 160px;
+    display: inline-block;
+}
