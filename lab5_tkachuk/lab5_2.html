@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+<h2>Моє меню</h2>
+
+
+<div class="burger" id="burger">
+<div></div>
+<div></div>
+<div></div>
+</div>
+
+
+<nav>
+<ul id="menu">
+<li><a href="#">Головна</a></li>
+<li><a href="#">Про нас</a></li>
+<li><a href="#">Контакти</a></li>
+</ul>
+</nav>
+</header>
+
+
+<div style="padding: 20px;">
+<button id="themeBtn">Змінити тему</button>
+<br><br>
+<button id="popupBtn">Показати повідомлення</button>
+</div>
+
+
+
+<div class="modal-bg" id="modalBg">
+<div class="modal">
+<span class="close-btn" id="closeModal">×</span>
+<h3>Привіт!</h3>
+<p>Це модальне повідомлення.</p>
+</div>
+</div>
+
+
+<script>
+
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.onclick = () => {
+document.body.classList.toggle('dark');
+document.body.classList.toggle('light');
+};
+
+
+
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+burger.onclick = () => {
+menu.classList.toggle('open');
+};
+
+
+const popupBtn = document.getElementById('popupBtn');
+const modalBg = document.getElementById('modalBg');
+const closeModal = document.getElementById('closeModal');
+
+
+popupBtn.onclick = () => {
+modalBg.classList.add('show');
+};
+
+
+closeModal.onclick = () => {
+modalBg.classList.remove('show');
+};
+
+
+modalBg.onclick = (e) => {
+if (e.target === modalBg) modalBg.classList.remove('show');
+};
+</script>
+</body>
+</html>

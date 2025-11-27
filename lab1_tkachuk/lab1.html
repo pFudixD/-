@@ -75,11 +75,22 @@
         }
     </script>
     <form id="main_form">
-        x: <input type="text" id="t_x" value="2"><br><br>
+        x: <input type="text" id="t_x" value="6"><br><br>
         y: <input type="text" id="t_y" value="4"><br><br>
         F: <input type="text" id="t_f" readonly><br><br>
-        <input type="button" value="Розрахувати" onClick="calculateF()">
+         <p>Вивід x на сторінку:</p>
+    <p id="output_x"></p>
+        
     </form>
+    <script>
+            let x=document.getElementById("t_x").value;
+         
+            console.log("x= ",x);
+            
+            
+        </script>
+
+        <input type="button" value="Розрахувати" onClick="calculateF()">
         <br>
     <h2>Завдання 5</h2>
   <script>
@@ -94,6 +105,7 @@
     function calculateSum() {
       let x = parseFloat(document.getElementById("t_x").value);
       let y = parseFloat(document.getElementById("t_y").value);
+
       let sum = 0;
 
       for (let i = 6; i <= 12; i++) {
