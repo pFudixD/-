@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="styles.css">
+<body>
+    <h1>Завдання з рядками</h1>
+
+<h2>Завдання 1: Довжина рядка</h2>
+<input type="text" id="task1Input" placeholder="Введіть рядок">
+<button onclick="task1()">Розрахувати довжину</button>
+<div class="result" id="task1Result"></div>
+
+<h2>Завдання 2: Верхній та нижній регістр</h2>
+<input type="text" id="task2Input" placeholder="Введіть рядок">
+<button onclick="task2()">Перетворити регістр</button>
+<div class="result" id="task2Result"></div>
+
+<h2>Завдання 3: Індекс символу</h2>
+<input type="text" id="task3Input" placeholder="Введіть рядок">
+<input type="text" id="task3Char" placeholder="Введіть символ" maxlength="1">
+<button onclick="task3()">Знайти індекс</button>
+<div class="result" id="task3Result"></div>
+
+<h2>Завдання 4: Кількість входжень символу</h2>
+<input type="text" id="task4Input" placeholder="Введіть рядок">
+<input type="text" id="task4Char" placeholder="Введіть символ" maxlength="1">
+<button onclick="task4()">Порахувати входження</button>
+<div class="result" id="task4Result"></div>
+
+<h2>Завдання 5: Міняти місцями кожні два символи</h2>
+<input type="text" id="task5Input" placeholder="Введіть рядок">
+<button onclick="task5()">Змінити</button>
+<div class="result" id="task5Result"></div>
+
+<h2>Завдання 6: Перевірка на спам</h2>
+<input type="text" id="task6Input" placeholder="Введіть рядок">
+<button onclick="task6()">Перевірити</button>
+<div class="result" id="task6Result"></div>
+
+<h2>Завдання 7: Скорочення рядка</h2>
+<input type="text" id="task7Input" placeholder="Введіть рядок">
+<input type="number" id="task7Max" placeholder="Максимальна довжина">
+<button onclick="task7()">Скоротити</button>
+<div class="result" id="task7Result"></div>
+
+<h2>Завдання 8: Видалити голосні</h2>
+<input type="text" id="task8Input" placeholder="Введіть рядок">
+<button onclick="task8()">Видалити голосні</button>
+<div class="result" id="task8Result"></div>
+
+<h2>Завдання 9: Заміна "JavaScript" на "JS"</h2>
+<input type="text" id="task9Input" placeholder="Введіть рядок">
+<button onclick="task9()">Замінити</button>
+<div class="result" id="task9Result"></div>
+
+<h2>Завдання 10: Перевірка на паліндром підрядка</h2>
+<input type="text" id="task10Input" placeholder="Введіть рядок">
+<button onclick="task10()">Перевірити</button>
+<div class="result" id="task10Result"></div>
+
+<script>
+// Завдання 1
+function task1() {
+    const str = document.getElementById('task1Input').value;
+    document.getElementById('task1Result').textContent = str.length;
+}
+
+// Завдання 2
+function task2() {
+    const str = document.getElementById('task2Input').value;
+    document.getElementById('task2Result').textContent = 
+        "Верхній: " + str.toUpperCase() + ", Нижній: " + str.toLowerCase();
+}
+
+// Завдання 3
+function task3() {
+    const str = document.getElementById('task3Input').value;
+    const char = document.getElementById('task3Char').value;
+    document.getElementById('task3Result').textContent = str.indexOf(char);
+}
+
+
+function task4() {
+    const str = document.getElementById('task4Input').value;
+    const char = document.getElementById('task4Char').value;
+    let count = 0;
+    for (let c of str) if (c === char) count++;
+    document.getElementById('task4Result').textContent = count;
+}
+
+
+function task5() {
+    const str = document.getElementById('task5Input').value;
+    let result = '';
+    for (let i = 0; i < str.length; i += 2) {
+        result += (str[i+1] || '') + str[i];
+    }
+    document.getElementById('task5Result').textContent = result;
+}
+
+
+function task6() {
+    const str = document.getElementById('task6Input').value.toLowerCase();
+    const spamWords = ["100% безкоштовно", "збільшення продажів", "тільки сьогодні", "не видаляйте"];
+    const isSpam = spamWords.some(word => str.includes(word));
+    document.getElementById('task6Result').textContent = isSpam;
+}
+
+
+function task7() {
+    const str = document.getElementById('task7Input').value;
+    const max = parseInt(document.getElementById('task7Max').value);
+    let result = str.length > max ? str.slice(0, max - 3) + "..." : str;
+    document.getElementById('task7Result').textContent = result;
+}
+
+
+function task8() {
+    const str = document.getElementById('task8Input').value;
+    const result = str.replace(/[aeiouyаеєиіїоуюяії]/gi, '');
+    document.getElementById('task8Result').textContent = result;
+}
+
+
+function task9() {
+    const str = document.getElementById('task9Input').value;
+    const result = str.replace(/JavaScript/g, 'JS');
+    document.getElementById('task9Result').textContent = result;
+}
+
+
+function task10() {
+    const str = document.getElementById('task10Input').value;
+    let found = false;
+    for (let len = 3; len <= str.length; len++) {
+        for (let i = 0; i <= str.length - len; i++) {
+            let sub = str.slice(i, i + len);
+            if (sub === sub.split('').reverse().join('')) {
+                found = true;
+                break;
+            }
+        }
+        if (found) break;
+    }
+    document.getElementById('task10Result').textContent = found;
+}
+</script>
+
+</body>
+</html>
