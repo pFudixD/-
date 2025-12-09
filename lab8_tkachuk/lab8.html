@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="result"></div>
+
+
+<div class="block">
+<h2>Завдання 1: Робота з часом</h2>
+
+<label>Години:</label><br>
+<input type="number" id="h" value="12"><br>
+
+<label>Хвилини:</label><br>
+<input type="number" id="m" value="30"><br>
+
+<label>Секунди:</label><br>
+<input type="number" id="s" value="45"><br>
+
+<button onclick="showTime()">1.1. Показати час</button>
+
+<br><br>
+<label>Додати секунд:</label><br>
+<input type="number" id="addSec" value="30"><br>
+<button onclick="addSeconds()">1.2. Додати секунди</button>
+</div>
+
+
+
+
+<div class="block">
+<h2>Завдання 2</h2>
+
+<p><b>2.1. Виведення поточної дати, дня тижня і часу</b></p>
+<button onclick="showCurrentDate()">Виконати</button>
+
+<hr>
+
+<h3>2.2 Останній день місяця</h3>
+<label>Рік:</label><br>
+<input type="number" id="year" value="2025"><br>
+
+<label>Місяць (1–12):</label><br>
+<input type="number" id="month" value="2"><br>
+
+<button onclick="lastDay()">Показати останній день місяця</button>
+
+<hr>
+
+<h3>2.3 Секунди з початку дня</h3>
+<button onclick="secondsInfo()">Показати інформацію</button>
+</div>
+
+
+<div class="block">
+<h2>Завдання 3: Клас Car</h2>
+
+<label>Марка:</label><br>
+<input type="text" id="carBrand"><br>
+
+<label>Модель:</label><br>
+<input type="text" id="carModel"><br>
+
+<label>Рік:</label><br>
+<input type="number" id="carYear"><br>
+
+<button onclick="showCar()">Показати авто</button>
+</div>
+
+<div class="block">
+<h2>Завдання 4: ElectricCar (наслідування)</h2>
+
+<label>Марка:</label><br>
+<input type="text" id="eBrand"><br>
+
+<label>Модель:</label><br>
+<input type="text" id="eModel"><br>
+
+<label>Рік:</label><br>
+<input type="number" id="eYear"><br>
+
+<label>Ємність батареї (kWh):</label><br>
+<input type="number" id="eBattery"><br>
+
+<button onclick="showElectricCar()">Показати електромобіль</button>
+</div>
+
+
+
+<div class="block">
+<h2>Завдання 5: MathHelper (статичний метод)</h2>
+
+<label>Число A:</label><br>
+<input type="number" id="numA"><br>
+
+<label>Число B:</label><br>
+<input type="number" id="numB"><br>
+
+<button onclick="doAdd()">Обчислити суму</button>
+</div>
+
+
+
+
+<div class="block">
+<h2>Завдання 6 (Варіант 3): Rectangle & Square</h2>
+
+<label>Ширина:</label><br>
+<input type="number" id="rectW"><br>
+
+<label>Висота:</label><br>
+<input type="number" id="rectH"><br>
+
+<button onclick="showRectangle()">Показати інформацію</button>
+<button onclick="clearFields()">Очистити поля</button>
+</div>
+
+
+
+<script>
+
+let timeObj = { hours: 12, minutes: 30, seconds: 45 };
+
+function updateTime() {
+    timeObj.hours = Number(document.getElementById("h").value);
+    timeObj.minutes = Number(document.getElementById("m").value);
+    timeObj.seconds = Number(document.getElementById("s").value);
+}
+
+function showTime() {
+    updateTime();
+    document.getElementById("result").innerHTML =
+        `Час: ${timeObj.hours}:${timeObj.minutes}:${timeObj.seconds}`;
+}
+
+function addSeconds() {
+    updateTime();
+    let add = Number(document.getElementById("addSec").value);
+    let total = timeObj.hours * 3600 + timeObj.minutes * 60 + timeObj.seconds + add;
+
+    timeObj.hours = Math.floor(total / 3600) % 24;
+    timeObj.minutes = Math.floor((total % 3600) / 60);
+    timeObj.seconds = total % 60;
+
+    showTime();
+}
+
+
+function showCurrentDate() {
+    let now = new Date();
+
+    let months = [
+        "січня","лютого","березня","квітня","травня","червня",
+        "липня","серпня","вересня","жовтня","листопада","грудня"
+    ];
+    let days = [
+        "неділя","понеділок","вівторок","середа",
+        "четвер","пʼятниця","субота"
+    ];
+
+    document.getElementById("result").innerHTML =
+        `Дата: ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} року<br>
+         День тижня: ${days[now.getDay()]}<br>
+         Час: ${now.getHours()}:${now.getMinutes().toString().padStart(2,"0")}`;
+}
+
+function lastDay() {
+    let y = Number(document.getElementById("year").value);
+    let m = Number(document.getElementById("month").value);
+
+    let d = new Date(y, m, 0).getDate();
+
+    document.getElementById("result").innerHTML =
+        `Останній день місяця: ${d}`;
+}
+
+function secondsInfo() {
+    let now = new Date();
+    let passed = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    let left = 86400 - passed;
+
+    document.getElementById("result").innerHTML =
+        `Пройшло секунд: ${passed}<br>
+         До наступного дня: ${left}`;
+}
+
+
+class Car {
+    constructor(brand, model, year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+    info() {
+        return `Авто: ${this.brand} ${this.model}, ${this.year} року.`;
+    }
+}
+
+function showCar() {
+    let brand = document.getElementById("carBrand").value;
+    let model = document.getElementById("carModel").value;
+    let year = document.getElementById("carYear").value;
+
+    let car = new Car(brand, model, year);
+
+    document.getElementById("result").innerHTML = car.info();
+}
+
+
+class ElectricCar extends Car {
+    constructor(brand, model, year, battery) {
+        super(brand, model, year);
+        this.battery = battery;
+    }
+    charge() {
+        return `${this.brand} ${this.model} заряджається... Батарея: ${this.battery} kWh`;
+    }
+}
+
+function showElectricCar() {
+    let brand = document.getElementById("eBrand").value;
+    let model = document.getElementById("eModel").value;
+    let year = document.getElementById("eYear").value;
+    let battery = document.getElementById("eBattery").value;
+
+    let ec = new ElectricCar(brand, model, year, battery);
+
+    document.getElementById("result").innerHTML =
+        ec.info() + "<br>" + ec.charge();
+}
+
+
+
+class MathHelper {
+    static add(a, b) {
+        return a + b;
+    }
+}
+
+function doAdd() {
+    let a = Number(document.getElementById("numA").value);
+    let b = Number(document.getElementById("numB").value);
+
+    document.getElementById("result").innerHTML =
+        `Сума: ${MathHelper.add(a, b)}`;
+}
+
+
+class Rectangle {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+    getArea() {
+        return this.width * this.height;
+    }
+    getPerimeter() {
+        return 2 * (this.width + this.height);
+    }
+}
+
+class Square extends Rectangle {
+    constructor(side) {
+        super(side, side);
+    }
+
+    static infoText = "Це квадрат";
+}
+
+function showRectangle() {
+    let w = Number(document.getElementById("rectW").value);
+    let h = Number(document.getElementById("rectH").value);
+
+    let obj;
+
+    if (w === h) obj = new Square(w);
+    else obj = new Rectangle(w, h);
+
+    document.getElementById("result").innerHTML =
+        (obj instanceof Square ? Square.infoText + "<br>" : "") +
+        `Площа: ${obj.getArea()}<br>
+         Периметр: ${obj.getPerimeter()}`;
+}
+
+function clearFields() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
