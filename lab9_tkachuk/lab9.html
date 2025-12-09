@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="logo"></div>
+
+<div id="logo"></div>
+<div id="text"></div>
+
+<script>
+let logo = document.getElementById("logo");
+let text = document.getElementById("text");
+
+let running = false;
+let animationFrame;
+
+let posX = 100;
+let posY = 100;
+let dirX = 2;
+let dirY = 1.5;
+
+let size = 120;
+let growing = true;
+
+let textStr = "Інженерія програмного забезпечення";
+let textIndex = 0;
+
+function animate() {
+
+    posX += dirX;
+    posY += dirY;
+
+    if (posX < 0 || posX > window.innerWidth - size) dirX *= -1;
+    if (posY < 0 || posY > window.innerHeight - size) dirY *= -1;
+
+    logo.style.left = posX + "px";
+    logo.style.top = posY + "px";
+
+
+    if (growing) size += 0.5;
+    else size -= 0.5;
+    if (size > 160) growing = false;
+    if (size < 120) growing = true;
+
+    logo.style.width = size + "px";
+    logo.style.height = size + "px";
+
+    if (textIndex < textStr.length) {
+        text.style.opacity = 1;
+        text.innerHTML += textStr[textIndex];
+        textIndex++;
+    }
+
+    if (Math.random() < 0.05) createStar();
+
+    if (running) animationFrame = requestAnimationFrame(animate);
+}
+
+function createStar() {
+    let star = document.createElement("div");
+    star.classList.add("star");
+    document.body.appendChild(star);
+
+    let x = Math.random() * window.innerWidth;
+    let y = Math.random() * window.innerHeight;
+
+    star.style.left = x + "px";
+    star.style.top = y + "px";
+
+    star.animate([
+        { opacity: 0, transform: "scale(0.5)" },
+        { opacity: 1, transform: "scale(1.5)" },
+        { opacity: 0, transform: "scale(0.2)" }
+    ], { duration: 1000 });
+
+    setTimeout(() => star.remove(), 1000);
+}
+
+document.addEventListener("click", () => {
+    running = !running;
+    if (running) {
+        textIndex = 0;
+        text.innerHTML = "";
+        animate();
+    } else {
+        cancelAnimationFrame(animationFrame);
+    }
+});
+</script>
+</body>
+</html>
